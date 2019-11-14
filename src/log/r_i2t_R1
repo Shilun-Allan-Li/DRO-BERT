@@ -1,0 +1,91 @@
+slurm submission log: 2019-11-14 05:26:37.744189
+created following sbatch script: 
+
+###############################
+
+#!/bin/bash
+
+#SBATCH --cpus-per-task=3
+#SBATCH --gres=gpu:1
+#SBATCH --job-name=shilun-job-4738818
+#SBATCH --mem=16G
+#SBATCH --open-mode=append
+#SBATCH --output=r_i2t_R1
+#SBATCH --partition=jag-standard
+#SBATCH --time=10-0
+
+# activate your desired anaconda environment
+source activate py-3.6.8
+
+# cd to working directory
+cd .
+
+# launch commands
+srun --unbuffered run_as_child_processes 'python robust_BERT.py'
+
+###############################
+
+submission to slurm complete!
+
+
+###############################
+slurm submission output
+
+Submitted batch job 1097066
+
+
+
+###############################
+
+/var/lib/slurm/slurmd/job1097066/slurm_script: line 13: activate: No such file or directory
+###############################
+start time: 2019-11-14 05:26:52.006347
+machine: jagupard4.stanford.edu
+conda env: allan
+###############################
+running following processes
+
+	python robust_BERT.py
+
+
+###############################
+command outputs: 
+
+
+LARGE: False
+MAX_LEN: 256
+HIDDEN_DIM: 256
+N_LAYERS: 2
+BIDIRECTIONAL: True
+DROPOUT: 0.5
+N_EPOCHS: 1
+TRAIN_IMDB: False
+LEARNING_RATE: 0.001
+RADIUS: 5
+====training on tomato and testing on imdb======
+=========Starting Training epoch #0==========
+epoch:0, step: 0, acc: 0.0, time: 1.534s
+epoch:0, step: 10, acc: 0.66, time: 15.627s
+epoch:0, step: 20, acc: 0.776, time: 15.703s
+epoch:0, step: 30, acc: 0.816, time: 15.674s
+epoch:0, step: 40, acc: 0.8, time: 15.686s
+epoch:0, step: 50, acc: 0.816, time: 15.669s
+epoch:0, step: 60, acc: 0.766, time: 15.683s
+epoch:0, step: 70, acc: 0.796, time: 15.656s
+epoch:0, step: 80, acc: 0.81, time: 15.655s
+epoch:0, step: 90, acc: 0.808, time: 15.686s
+epoch:0, step: 100, acc: 0.79, time: 15.641s
+epoch:0, step: 110, acc: 0.808, time: 15.651s
+epoch:0, step: 120, acc: 0.814, time: 15.635s
+epoch:0, step: 130, acc: 0.842, time: 15.614s
+Epoch: 01 | Epoch Time: 3m 25s
+	Train Loss: 0.450 | Train Acc: 79.30%
+	 Val. Loss: 0.371 |  Val. Acc: 85.06%
+=====test result on own dataset=====
+	 Test. Loss: 0.397 |  Test. Acc: 83.31%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.516 |  Test. Acc: 76.05%
+###############################
+end time: 2019-11-14 05:34:04.626375
+elapsed time: 0:07:12.620028
