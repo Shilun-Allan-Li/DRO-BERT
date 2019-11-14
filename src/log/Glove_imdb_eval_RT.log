@@ -1,0 +1,79 @@
+slurm submission log: 2019-10-24 19:35:23.064336
+created following sbatch script: 
+
+###############################
+
+#!/bin/bash
+
+#SBATCH --cpus-per-task=5
+#SBATCH --gres=gpu:2
+#SBATCH --job-name=shilun-job-4992008
+#SBATCH --mem=16G
+#SBATCH --open-mode=append
+#SBATCH --output=shilun-job-4992008.out
+#SBATCH --partition=jag-standard
+#SBATCH --time=10-0
+
+# activate your desired anaconda environment
+source activate py-3.6.8
+
+# cd to working directory
+cd .
+
+# launch commands
+srun --unbuffered run_as_child_processes 'python sentiment_baseline.py'
+
+###############################
+
+submission to slurm complete!
+
+
+###############################
+slurm submission output
+
+Submitted batch job 891336
+
+
+
+###############################
+
+/var/lib/slurm/slurmd/job891336/slurm_script: line 13: activate: No such file or directory
+###############################
+start time: 2019-10-24 19:35:24.199868
+machine: jagupard6.stanford.edu
+conda env: allan
+###############################
+running following processes
+
+	python sentiment_baseline.py
+
+
+###############################
+command outputs: 
+
+
+begin to load dataset
+building vocab
+begin training
+Epoch: 01 | Epoch Time: 1m 42s
+	Train Loss: 0.643 | Train Acc: 61.87%
+	 Val. Loss: 0.584 |  Val. Acc: 71.30%
+Epoch: 02 | Epoch Time: 1m 42s
+	Train Loss: 0.568 | Train Acc: 70.96%
+	 Val. Loss: 0.693 |  Val. Acc: 49.74%
+Epoch: 03 | Epoch Time: 1m 42s
+	Train Loss: 0.552 | Train Acc: 71.41%
+	 Val. Loss: 0.374 |  Val. Acc: 84.27%
+Epoch: 04 | Epoch Time: 1m 42s
+	Train Loss: 0.387 | Train Acc: 82.91%
+	 Val. Loss: 0.368 |  Val. Acc: 84.90%
+Epoch: 05 | Epoch Time: 1m 42s
+	Train Loss: 0.305 | Train Acc: 87.53%
+	 Val. Loss: 0.329 |  Val. Acc: 85.59%
+Test Loss: 0.353 | Test Acc: 84.25%
+the acc of the imdb model on tomato train is 0.7664021971315227(5023/6554)
+the acc of the imdb model on tomato dev is 0.8050065876152833(611/759)
+the acc of the imdb model on tomato test is 0.7856294536817102(1323/1684)
+###############################
+end time: 2019-10-24 19:48:50.779995
+elapsed time: 0:13:26.580127

@@ -1,0 +1,83 @@
+slurm submission log: 2019-11-14 03:07:07.509074
+created following sbatch script: 
+
+###############################
+
+#!/bin/bash
+
+#SBATCH --cpus-per-task=3
+#SBATCH --gres=gpu:1
+#SBATCH --job-name=shilun-job-2326029
+#SBATCH --mem=16G
+#SBATCH --open-mode=append
+#SBATCH --output=shilun-job-2326029.out
+#SBATCH --partition=jag-standard
+#SBATCH --time=10-0
+
+# activate your desired anaconda environment
+source activate py-3.6.8
+
+# cd to working directory
+cd .
+
+# launch commands
+srun --unbuffered run_as_child_processes 'python baseline_BERT.py '
+
+###############################
+
+submission to slurm complete!
+
+
+###############################
+slurm submission output
+
+Submitted batch job 1096819
+
+
+
+###############################
+
+/var/lib/slurm/slurmd/job1096819/slurm_script: line 13: activate: No such file or directory
+###############################
+start time: 2019-11-14 03:08:14.531972
+machine: jagupard4.stanford.edu
+conda env: allan
+###############################
+running following processes
+
+	python baseline_BERT.py 
+
+
+###############################
+command outputs: 
+
+
+====training on imdb and testing on tomato======
+=========Starting Training epoch #0==========
+epoch:0, step: 0, acc: 0.0, time: 1.808s
+epoch:0, step: 10, acc: 0.552, time: 19.478s
+epoch:0, step: 20, acc: 0.69, time: 19.507s
+epoch:0, step: 30, acc: 0.744, time: 19.328s
+epoch:0, step: 40, acc: 0.73, time: 19.464s
+epoch:0, step: 50, acc: 0.778, time: 19.424s
+epoch:0, step: 60, acc: 0.778, time: 19.445s
+epoch:0, step: 70, acc: 0.77, time: 19.517s
+epoch:0, step: 80, acc: 0.774, time: 19.386s
+epoch:0, step: 90, acc: 0.808, time: 19.499s
+epoch:0, step: 100, acc: 0.832, time: 19.432s
+epoch:0, step: 110, acc: 0.842, time: 19.506s
+epoch:0, step: 120, acc: 0.842, time: 19.34s
+epoch:0, step: 130, acc: 0.834, time: 19.629s
+epoch:0, step: 140, acc: 0.812, time: 19.455s
+epoch:0, step: 150, acc: 0.83, time: 19.59s
+Epoch: 01 | Epoch Time: 5m 11s
+	Train Loss: 0.460 | Train Acc: 77.77%
+	 Val. Loss: 0.368 |  Val. Acc: 83.50%
+=====test result on own dataset=====
+	 Test. Loss: 0.362 |  Test. Acc: 83.60%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.503 |  Test. Acc: 77.64%
+###############################
+end time: 2019-11-14 03:18:07.591475
+elapsed time: 0:09:53.059503
