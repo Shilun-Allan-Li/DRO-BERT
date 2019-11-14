@@ -191,7 +191,7 @@ N_LAYERS = 2
 BIDIRECTIONAL = True
 DROPOUT = 0.5
 N_EPOCHS = 1
-TRAIN_IMDB = True
+TRAIN_IMDB = False
 LEARNING_RATE = 1e-3
 
 params = (LARGE, MAX_LEN, HIDDEN_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT, N_EPOCHS, TRAIN_IMDB, LEARNING_RATE)
@@ -266,6 +266,8 @@ def main():
         print(f'Epoch: {epoch + 1:02} | Epoch Time: {epoch_mins}m {epoch_secs}s')
         print(f'\tTrain Loss: {train_loss:.3f} | Train Acc: {train_acc * 100:.2f}%')
         print(f'\t Val. Loss: {valid_loss:.3f} |  Val. Acc: {valid_acc * 100:.2f}%')
+        
+    model.load_state_dict(torch.load('../save/baseline_BERT_model_{}.pt'))
         
     """start testing on other dataset"""
     print("=====test result on own dataset=====")
