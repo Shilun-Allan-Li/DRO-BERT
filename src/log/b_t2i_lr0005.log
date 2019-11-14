@@ -51,7 +51,15 @@ running following processes
 ###############################
 command outputs: 
 
-
+LARGE: False
+MAX_LEN: 256
+HIDDEN_DIM: 256
+N_LAYERS: 2
+BIDIRECTIONAL: True
+DROPOUT: 0.5
+N_EPOCHS: 1
+TRAIN_IMDB: False
+LEARNING_RATE: 0.0005
 ====training on imdb and testing on tomato======
 =========Starting Training epoch #0==========
 epoch:0, step: 0, acc: 0.0, time: 1.812s
