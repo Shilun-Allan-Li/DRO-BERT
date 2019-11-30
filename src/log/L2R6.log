@@ -1,0 +1,94 @@
+slurm submission log: 2019-11-29 16:47:59.177728
+created following sbatch script: 
+
+###############################
+
+#!/bin/bash
+
+#SBATCH --cpus-per-task=3
+#SBATCH --gres=gpu:1
+#SBATCH --job-name=shilun-job-3528794
+#SBATCH --mem=16G
+#SBATCH --open-mode=append
+#SBATCH --output=L2R6.log
+#SBATCH --partition=jag-standard
+#SBATCH --time=10-0
+
+# activate your desired anaconda environment
+source activate py-3.6.8
+
+# cd to working directory
+cd .
+
+# launch commands
+srun --unbuffered run_as_child_processes 'python robust_BERT.py --ball L2 --radius 6'
+
+###############################
+
+submission to slurm complete!
+
+
+###############################
+slurm submission output
+
+Submitted batch job 1155572
+
+
+
+###############################
+
+/var/lib/slurm/slurmd/job1155572/slurm_script: line 13: activate: No such file or directory
+###############################
+start time: 2019-11-29 17:07:57.349525
+machine: jagupard17.stanford.edu
+conda env: allan
+###############################
+running following processes
+
+	python robust_BERT.py --ball L2 --radius 6
+
+
+###############################
+command outputs: 
+
+
+LARGE: False
+MAX_LEN: 256
+HIDDEN_DIM: 256
+N_LAYERS: 2
+BIDIRECTIONAL: True
+DROPOUT: 0.5
+N_EPOCHS: 1
+TRAIN_IMDB: True
+LEARNING_RATE: 0.001
+RADIUS: 6.0
+BALL_TYPE: L2
+====training on imdb and testing on tomato======
+=========Starting Training epoch #0==========
+epoch:0, step: 0, acc: 0.0, time: 0.65s
+epoch:0, step: 10, acc: 0.556, time: 6.831s
+epoch:0, step: 20, acc: 0.698, time: 6.841s
+epoch:0, step: 30, acc: 0.756, time: 6.672s
+epoch:0, step: 40, acc: 0.75, time: 6.91s
+epoch:0, step: 50, acc: 0.792, time: 6.872s
+epoch:0, step: 60, acc: 0.782, time: 6.88s
+epoch:0, step: 70, acc: 0.774, time: 6.938s
+epoch:0, step: 80, acc: 0.766, time: 6.746s
+epoch:0, step: 90, acc: 0.784, time: 6.957s
+epoch:0, step: 100, acc: 0.822, time: 6.847s
+epoch:0, step: 110, acc: 0.814, time: 6.876s
+epoch:0, step: 120, acc: 0.836, time: 6.793s
+epoch:0, step: 130, acc: 0.806, time: 7.079s
+epoch:0, step: 140, acc: 0.812, time: 6.781s
+epoch:0, step: 150, acc: 0.81, time: 6.773s
+Epoch: 01 | Epoch Time: 1m 49s
+	Train Loss: 0.466 | Train Acc: 77.45%
+	 Val. Loss: 0.363 |  Val. Acc: 84.20%
+=====test result on own dataset=====
+	 Test. Loss: 0.363 |  Test. Acc: 84.05%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.486 |  Test. Acc: 77.93%
+###############################
+end time: 2019-11-29 17:12:50.059334
+elapsed time: 0:04:52.709809

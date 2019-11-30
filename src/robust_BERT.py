@@ -94,9 +94,35 @@ class BERT_biLSTM(nn.Module):
                 
         hidden = self.dropout(torch.cat((hidden[-2,:, :], hidden[-1,:, :]), dim=1))
         
-        norms = torch.norm(hidden, p=2, dim=1)
-        
-        projection = RADIUS * hidden / norms[:,None]
+        if BALL_TYPE[0] == 'L':
+            """
+            Find the vector v which is the solution to the
+            following constrained optimization min:
+            
+            problem  norm(v - x, p)
+            s.t. norm(v, p) <= radius
+            """
+            p = int(BALL_TYPE[1])
+            norms = torch.norm(hidden, p=p, dim=1)
+            projection = hidden * (norms <= RADIUS).float()[:,None] #if norm < r, then it is x
+            projection += hidden * (norms > RADIUS).float()[:,None] * RADIUS / norms[:,None]
+#            projection = RADIUS * hidden / norms[:,None]
+            
+        if BALL_TYPE == 'Simplex':
+            """
+            Find the vector v which is the solution to the
+            following constrained optimization min:
+            
+            problem  norm(v - x, 2)
+            s.t. norm(v, 1) <= radius
+            """
+            norms = torch.norm(hidden, p=1, dim=1)
+            projection = hidden * (norms <= RADIUS).float()[:,None]
+            x = hidden.abs()
+            x = torch.sort(x, descending=True)
+            
+            
+            
     
         predict = self.fc(projection)
 
@@ -185,6 +211,11 @@ def evaluate(model, iterator, criterion):
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--large", action='store_true')
+parser.add_argument("--save", action='store_true')
+parser.add_argument("--train_full", action='store_true')
+parser.add_argument("--radius", type=float, default=5)
+parser.add_argument("--ball", type=str, default='L2')
+
 args = parser.parse_args()
 
 LARGE = args.large
@@ -194,12 +225,15 @@ N_LAYERS = 2
 BIDIRECTIONAL = True
 DROPOUT = 0.5
 N_EPOCHS = 1
-TRAIN_IMDB = False
+TRAIN_IMDB = True
 LEARNING_RATE = 1e-3
-RADIUS = 5
+RADIUS = args.radius
+BALL_TYPE = args.ball
+SAVE = args.save
+FULL = args.train_full
 
-params = (LARGE, MAX_LEN, HIDDEN_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT, N_EPOCHS, TRAIN_IMDB, LEARNING_RATE, RADIUS)
-for i, param in enumerate(('LARGE', 'MAX_LEN', 'HIDDEN_DIM', 'N_LAYERS', 'BIDIRECTIONAL', 'DROPOUT', 'N_EPOCHS', 'TRAIN_IMDB', 'LEARNING_RATE', 'RADIUS')):
+params = (LARGE, MAX_LEN, HIDDEN_DIM, N_LAYERS, BIDIRECTIONAL, DROPOUT, N_EPOCHS, TRAIN_IMDB, LEARNING_RATE, RADIUS, BALL_TYPE)
+for i, param in enumerate(('LARGE', 'MAX_LEN', 'HIDDEN_DIM', 'N_LAYERS', 'BIDIRECTIONAL', 'DROPOUT', 'N_EPOCHS', 'TRAIN_IMDB', 'LEARNING_RATE', 'RADIUS', 'BALL_TYPE')):
     print("{}: {}".format(param, params[i]))
     
 
@@ -234,9 +268,13 @@ def main():
     print("====training on {} and testing on {}======".format(*train_test))
     """read imdb dataset"""
     train_data, test_data = imdb_dataset(train=True, test=True)
-    train_valid_data = random.sample(train_data, 10000)
-    train_data, valid_data = train_valid_data[:8000], train_valid_data[8000:]
-    test_data = random.sample(test_data, 2000)
+    if not FULL:
+        train_valid_data = random.sample(train_data, 10000)
+        train_data, valid_data = train_valid_data[:8000], train_valid_data[8000:]
+        test_data = random.sample(test_data, 2000)
+    else:
+        test_valid_data = random.sample(test_data, 4000)
+        valid_data, test_data = test_valid_data[:2000], test_valid_data[2000:]
 
     train_dataset, valid_dataset, test_dataset = SentDataset(train_data), SentDataset(valid_data), SentDataset(test_data)
     trainIteration = data.DataLoader(dataset=train_dataset, collate_fn=sort_batch, batch_size=50, shuffle=True)
@@ -279,7 +317,7 @@ def main():
         
         if valid_loss < best_valid_loss:
             best_valid_loss = valid_loss
-            torch.save(model.state_dict(), '../save/robust_BERT_model_{}.pt'.format('imdb' if TRAIN_IMDB else 'tomato'))
+            if SAVE: torch.save(model.state_dict(), '../save/robust_BERT_model_{}.pt'.format('imdb' if TRAIN_IMDB else 'tomato'))
 
         print(f'Epoch: {epoch + 1:02} | Epoch Time: {epoch_mins}m {epoch_secs}s')
         print(f'\tTrain Loss: {train_loss:.3f} | Train Acc: {train_acc * 100:.2f}%')
