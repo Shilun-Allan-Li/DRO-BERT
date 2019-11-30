@@ -1,0 +1,140 @@
+filename: L1R10_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.384 |  Test. Acc: 84.25%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.479 |  Test. Acc: 78.10%
+
+filename: L1R15_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.365 |  Test. Acc: 85.00%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.447 |  Test. Acc: 80.04%
+
+filename: L1R1_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.599 |  Test. Acc: 80.65%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.620 |  Test. Acc: 74.72%
+
+filename: L1R2_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.575 |  Test. Acc: 75.10%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.618 |  Test. Acc: 69.34%
+
+filename: L1R5_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.421 |  Test. Acc: 84.55%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.476 |  Test. Acc: 80.62%
+
+filename: L2R10_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.336 |  Test. Acc: 85.60%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.409 |  Test. Acc: 82.45%
+
+filename: L2R15_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.349 |  Test. Acc: 84.90%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.448 |  Test. Acc: 78.90%
+
+filename: L2R1_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.379 |  Test. Acc: 84.90%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.479 |  Test. Acc: 81.02%
+
+filename: L2R2_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.379 |  Test. Acc: 84.85%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.504 |  Test. Acc: 81.13%
+
+filename: L2R5_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.376 |  Test. Acc: 83.45%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.526 |  Test. Acc: 75.75%
+
+filename: L4R10_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.342 |  Test. Acc: 84.95%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.463 |  Test. Acc: 80.16%
+
+filename: L4R15_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.338 |  Test. Acc: 85.10%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.432 |  Test. Acc: 79.70%
+
+filename: L4R1_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.408 |  Test. Acc: 84.90%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.597 |  Test. Acc: 80.10%
+
+filename: L4R2_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.356 |  Test. Acc: 85.50%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.484 |  Test. Acc: 80.39%
+
+filename: L4R5_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.347 |  Test. Acc: 85.00%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.464 |  Test. Acc: 80.73%
+
+filename: SimplexR10_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.426 |  Test. Acc: 84.35%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.500 |  Test. Acc: 78.84%
+
+filename: SimplexR15_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.406 |  Test. Acc: 84.20%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.534 |  Test. Acc: 76.38%
+
+filename: SimplexR1_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.530 |  Test. Acc: 84.45%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.562 |  Test. Acc: 78.04%
+
+filename: SimplexR2_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.509 |  Test. Acc: 83.60%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.525 |  Test. Acc: 81.02%
+
+filename: SimplexR5_full.log
+=====test result on own dataset=====
+	 Test. Loss: 0.453 |  Test. Acc: 84.70%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.514 |  Test. Acc: 78.21%
+
