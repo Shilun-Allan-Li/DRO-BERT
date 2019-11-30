@@ -1,0 +1,128 @@
+slurm submission log: 2019-11-29 19:19:07.941120
+created following sbatch script: 
+
+###############################
+
+#!/bin/bash
+
+#SBATCH --cpus-per-task=3
+#SBATCH --gres=gpu:1
+#SBATCH --job-name=shilun-job-1918357
+#SBATCH --mem=16G
+#SBATCH --open-mode=append
+#SBATCH --output=log/SimplexR15_full.log
+#SBATCH --partition=jag-standard
+#SBATCH --time=10-0
+
+# activate your desired anaconda environment
+source activate py-3.6.8
+
+# cd to working directory
+cd .
+
+# launch commands
+srun --unbuffered run_as_child_processes 'python robust_BERT.py --train_full --radius 15 --ball Simplex'
+
+###############################
+
+submission to slurm complete!
+
+
+###############################
+slurm submission output
+
+Submitted batch job 1155712
+
+
+
+###############################
+
+/var/lib/slurm/slurmd/job1155712/slurm_script: line 13: activate: No such file or directory
+###############################
+start time: 2019-11-29 19:55:34.782189
+machine: jagupard11.stanford.edu
+conda env: allan
+###############################
+running following processes
+
+	python robust_BERT.py --train_full --radius 15 --ball Simplex
+
+
+###############################
+command outputs: 
+
+
+LARGE: False
+MAX_LEN: 256
+HIDDEN_DIM: 256
+N_LAYERS: 2
+BIDIRECTIONAL: True
+DROPOUT: 0.5
+N_EPOCHS: 1
+TRAIN_IMDB: True
+LEARNING_RATE: 0.0005
+RADIUS: 15.0
+BALL_TYPE: Simplex
+====training on imdb and testing on tomato======
+=========Starting Training epoch #0==========
+epoch:0, step: 0, acc: 0.0, time: 1.014s
+epoch:0, step: 10, acc: 0.482, time: 10.673s
+epoch:0, step: 20, acc: 0.59, time: 10.792s
+epoch:0, step: 30, acc: 0.69, time: 10.561s
+epoch:0, step: 40, acc: 0.788, time: 10.534s
+epoch:0, step: 50, acc: 0.748, time: 10.929s
+epoch:0, step: 60, acc: 0.798, time: 10.597s
+epoch:0, step: 70, acc: 0.8, time: 10.4s
+epoch:0, step: 80, acc: 0.814, time: 10.464s
+epoch:0, step: 90, acc: 0.802, time: 10.963s
+epoch:0, step: 100, acc: 0.806, time: 10.465s
+epoch:0, step: 110, acc: 0.818, time: 10.737s
+epoch:0, step: 120, acc: 0.812, time: 10.814s
+epoch:0, step: 130, acc: 0.806, time: 10.604s
+epoch:0, step: 140, acc: 0.78, time: 10.527s
+epoch:0, step: 150, acc: 0.768, time: 10.536s
+epoch:0, step: 160, acc: 0.85, time: 10.491s
+epoch:0, step: 170, acc: 0.808, time: 10.591s
+epoch:0, step: 180, acc: 0.798, time: 10.473s
+epoch:0, step: 190, acc: 0.808, time: 10.635s
+epoch:0, step: 200, acc: 0.818, time: 10.561s
+epoch:0, step: 210, acc: 0.846, time: 10.583s
+epoch:0, step: 220, acc: 0.84, time: 10.614s
+epoch:0, step: 230, acc: 0.798, time: 10.666s
+epoch:0, step: 240, acc: 0.848, time: 10.587s
+epoch:0, step: 250, acc: 0.858, time: 10.441s
+epoch:0, step: 260, acc: 0.812, time: 10.854s
+epoch:0, step: 270, acc: 0.856, time: 10.483s
+epoch:0, step: 280, acc: 0.846, time: 10.597s
+epoch:0, step: 290, acc: 0.832, time: 10.589s
+epoch:0, step: 300, acc: 0.866, time: 10.473s
+epoch:0, step: 310, acc: 0.786, time: 10.507s
+epoch:0, step: 320, acc: 0.794, time: 10.399s
+epoch:0, step: 330, acc: 0.838, time: 10.447s
+epoch:0, step: 340, acc: 0.852, time: 10.35s
+epoch:0, step: 350, acc: 0.82, time: 10.381s
+epoch:0, step: 360, acc: 0.862, time: 10.384s
+epoch:0, step: 370, acc: 0.828, time: 10.489s
+epoch:0, step: 380, acc: 0.826, time: 10.378s
+epoch:0, step: 390, acc: 0.84, time: 10.385s
+epoch:0, step: 400, acc: 0.858, time: 10.402s
+epoch:0, step: 410, acc: 0.83, time: 10.462s
+epoch:0, step: 420, acc: 0.86, time: 10.397s
+epoch:0, step: 430, acc: 0.84, time: 10.364s
+epoch:0, step: 440, acc: 0.866, time: 10.377s
+epoch:0, step: 450, acc: 0.842, time: 10.42s
+epoch:0, step: 460, acc: 0.858, time: 10.372s
+epoch:0, step: 470, acc: 0.846, time: 10.389s
+epoch:0, step: 480, acc: 0.812, time: 10.457s
+epoch:0, step: 490, acc: 0.806, time: 10.392s
+Epoch: 01 | Epoch Time: 8m 46s
+	Train Loss: 0.428 | Train Acc: 81.00%
+	 Val. Loss: 0.401 |  Val. Acc: 84.30%
+=====test result on own dataset=====
+	 Test. Loss: 0.406 |  Test. Acc: 84.20%
+
+=====test result on other dataset=====
+	 Test. Loss: 0.534 |  Test. Acc: 76.38%
+###############################
+end time: 2019-11-29 20:07:20.239425
+elapsed time: 0:11:45.457236

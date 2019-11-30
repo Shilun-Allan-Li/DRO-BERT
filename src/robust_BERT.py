@@ -12,11 +12,6 @@ from pytorch_pretrained_bert import BertTokenizer, BertModel
 import json
 import sys
 
-"""
-ToDo:
-1. sort the dataset by text length
-2. use the max length of the batch in sort batch instead of the maximum length of all text
-"""
 
 class SentDataset(data.Dataset):
     '''                                                                                             
@@ -118,12 +113,17 @@ class BERT_biLSTM(nn.Module):
             """
             norms = torch.norm(hidden, p=1, dim=1)
             projection = hidden * (norms <= RADIUS).float()[:,None]
-            x = hidden.abs()
-            x = torch.sort(x, descending=True)
+            u_abs = hidden.abs()
+            u, _ = torch.sort(u_abs, descending=True, dim=1)
+            sv = torch.cumsum(u, dim=1)
+            x = (sv - torch.ones_like(sv, device=device) * RADIUS) / (torch.ones(sv.shape[0], device=device)[:,None] * sv.shape[1])
+            comp = u > x
+            ind = torch.argsort(comp, dim=1)[:,-1]
+            sv_ind = torch.gather(sv, 1, ind[:,None]).squeeze()
+            ind = ind.float() + torch.ones(sv.shape[0], device=device)
+            theta = torch.max(torch.zeros_like(sv, device=device), ((sv_ind - RADIUS) / ind)[:,None])
+            projection = torch.sign(hidden) * torch.max(u_abs - theta, torch.zeros_like(sv, device=device))
             
-            
-            
-    
         predict = self.fc(projection)
 
         # print("rest time:{}".format(time.time() - start_time))
@@ -214,6 +214,7 @@ parser.add_argument("--large", action='store_true')
 parser.add_argument("--save", action='store_true')
 parser.add_argument("--train_full", action='store_true')
 parser.add_argument("--radius", type=float, default=5)
+parser.add_argument("--lr", type=float, default=5e-4)
 parser.add_argument("--ball", type=str, default='L2')
 
 args = parser.parse_args()
@@ -226,7 +227,7 @@ BIDIRECTIONAL = True
 DROPOUT = 0.5
 N_EPOCHS = 1
 TRAIN_IMDB = True
-LEARNING_RATE = 1e-3
+LEARNING_RATE = args.lr
 RADIUS = args.radius
 BALL_TYPE = args.ball
 SAVE = args.save
@@ -251,6 +252,9 @@ tokenizer = BertTokenizer.from_pretrained('bert-{}-cased'.format('large' if LARG
 
 
 def test():
+    print('=====testing=====')
+    global BALL_TYPE
+    BALL_TYPE = 'Simplex'
     with open("../data/rotten_tomato_dev.json", "r") as read_file:
         tomato_valid_data = json.load(read_file)
     tomato_valid_dataset = SentDataset(tomato_valid_data)
